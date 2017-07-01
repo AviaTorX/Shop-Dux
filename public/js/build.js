@@ -701,8 +701,10 @@ function compose() {
 
 var _redux = __webpack_require__(8);
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var reducer = function reducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { book: [] };
   var action = arguments[1];
 
   switch (action.type) {
@@ -714,8 +716,10 @@ var reducer = function reducer() {
     //   return state - action.payload;
     //   break;
     // default:
+    //CREATE BOOK
     case "POST_BOOK":
-      return state = action.payload;
+      // return {book:state.book.concat(action.payload)};
+      return { book: [].concat(_toConsumableArray(state.book), _toConsumableArray(action.payload)) };
       break;
 
   }
@@ -733,12 +737,24 @@ store.subscribe(function () {
 // store.dispatch({type:"DECREMENT", payload:1})
 // store.dispatch({type:"INCREMENT", payload:1})
 
-store.dispatch({ type: "POST_BOOK", payload: {
+store.dispatch({ type: "POST_BOOK", payload: [{
     id: 1,
     title: "WElcome",
     description: "Learning",
     price: 33
-  } });
+  }, {
+    id: 2,
+    title: "Sayonara",
+    description: "Learning End",
+    price: 50
+  }] });
+
+store.dispatch({ type: "POST_BOOK", payload: [{
+    id: 3,
+    title: "Start",
+    description: "Begining",
+    price: 48
+  }] });
 
 /***/ }),
 /* 8 */
