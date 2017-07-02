@@ -76,3 +76,9 @@ store.dispatch({type:"UPDATE_BOOK", payload:{
   id:2,
   title:"rux"
 }})
+
+//SHOPPING CART
+
+store.dispatch({type:"ADD_TO_CART", payload:[{
+  id:2
+}]})
