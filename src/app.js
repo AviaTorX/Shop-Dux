@@ -2,7 +2,10 @@ import {applyMiddleware, createStore} from 'redux';
 import reducers from './reducers/index.js';
 import {addToCart} from './actions/cartActions.js';
 import {postBook, updateBook, deleteBook} from './actions/bookActions.js';
-import logger from 'redux-logger'
+import logger from 'redux-logger';
+import {render} from 'react-dom';
+import React from 'react';
+import BooksList from './components/pages/booksList.js';
 // var reducer = function(state={book:[]}, action){
 //   switch (action.type) {
 //     // case "INCREMENT":
@@ -45,6 +48,10 @@ store.subscribe(function(){
   console.log('current state : ', store.getState());
 })
 
+
+render(
+  <BooksList />, document.getElementById('main')
+);
 
 // store.dispatch({type:"INCREMENT", payload:1})
 // store.dispatch({type:"INCREMENT", payload:1})
