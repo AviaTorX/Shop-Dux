@@ -701,32 +701,48 @@ function compose() {
 
 var _redux = __webpack_require__(8);
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+var _index = __webpack_require__(24);
 
-var reducer = function reducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { book: [] };
-  var action = arguments[1];
+var _index2 = _interopRequireDefault(_index);
 
-  switch (action.type) {
-    // case "INCREMENT":
-    //   return state + action.payload;
-    //   break;
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-    // case "DECREMENT":
-    //   return state - action.payload;
-    //   break;
-    // default:
-    //CREATE BOOK
-    case "POST_BOOK":
-      // return {book:state.book.concat(action.payload)};
-      return { book: [].concat(_toConsumableArray(state.book), _toConsumableArray(action.payload)) };
-      break;
+// var reducer = function(state={book:[]}, action){
+//   switch (action.type) {
+//     // case "INCREMENT":
+//     //   return state + action.payload;
+//     //   break;
+//
+//     // case "DECREMENT":
+//     //   return state - action.payload;
+//     //   break;
+//     // default:
+//     //CREATE BOOK
+//     case "POST_BOOK":
+//       // return {book:state.book.concat(action.payload)};
+//       return {book:[...state.book, ...action.payload]}
+//       break;
+//     case "DELETE_BOOK":
+//       const books = [...state.book];
+//       const indexToDelete = books.findIndex(function(book){
+//         return book.id === action.payload.id
+//       })
+//       return {book:[...books.slice(0, indexToDelete), ...books.slice(indexToDelete+1)]}
+//       break;
+//     case "UPDATE_BOOK":
+//       const booksToUpdate = [...state.book];
+//       const indexToUpdate = booksToUpdate.findIndex(function(book){
+//         return book.id === action.payload.id;
+//       });
+//       const newUpdatedBook = {...booksToUpdate[indexToUpdate], title:action.payload.title};
+//       return {book:[...booksToUpdate.slice(0, indexToUpdate), newUpdatedBook, ...booksToUpdate.slice(indexToUpdate+1)]}
+//       break;
+//
+//   }
+//   return state;
+// }
 
-  }
-  return state;
-};
-
-var store = (0, _redux.createStore)(reducer);
+var store = (0, _redux.createStore)(_index2.default);
 
 store.subscribe(function () {
   console.log('current state : ', store.getState());
@@ -755,6 +771,15 @@ store.dispatch({ type: "POST_BOOK", payload: [{
     description: "Begining",
     price: 48
   }] });
+
+store.dispatch({ type: "DELETE_BOOK", payload: {
+    id: 1
+  } });
+
+store.dispatch({ type: "UPDATE_BOOK", payload: {
+    id: 2,
+    title: "rux"
+  } });
 
 /***/ }),
 /* 8 */
@@ -1364,6 +1389,80 @@ function applyMiddleware() {
       });
     };
   };
+}
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(8);
+
+var _booksReducers = __webpack_require__(25);
+
+exports.default = (0, _redux.combineReducers)({
+  book: _booksReducers.booksReducers
+});
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.booksReducers = booksReducers;
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function booksReducers() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { book: [] };
+  var action = arguments[1];
+
+  switch (action.type) {
+    // case "INCREMENT":
+    //   return state + action.payload;
+    //   break;
+
+    // case "DECREMENT":
+    //   return state - action.payload;
+    //   break;
+    // default:
+    //CREATE BOOK
+    case "POST_BOOK":
+      // return {book:state.book.concat(action.payload)};
+      return { book: [].concat(_toConsumableArray(state.book), _toConsumableArray(action.payload)) };
+      break;
+    case "DELETE_BOOK":
+      var books = [].concat(_toConsumableArray(state.book));
+      var indexToDelete = books.findIndex(function (book) {
+        return book.id === action.payload.id;
+      });
+      return { book: [].concat(_toConsumableArray(books.slice(0, indexToDelete)), _toConsumableArray(books.slice(indexToDelete + 1))) };
+      break;
+    case "UPDATE_BOOK":
+      var booksToUpdate = [].concat(_toConsumableArray(state.book));
+      var indexToUpdate = booksToUpdate.findIndex(function (book) {
+        return book.id === action.payload.id;
+      });
+      var newUpdatedBook = _extends({}, booksToUpdate[indexToUpdate], { title: action.payload.title });
+      return { book: [].concat(_toConsumableArray(booksToUpdate.slice(0, indexToUpdate)), [newUpdatedBook], _toConsumableArray(booksToUpdate.slice(indexToUpdate + 1))) };
+      break;
+
+  }
+  return state;
 }
 
 /***/ })
