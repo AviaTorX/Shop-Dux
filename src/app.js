@@ -1,7 +1,8 @@
-import {createStore} from 'redux';
+import {applyMiddleware, createStore} from 'redux';
 import reducers from './reducers/index.js';
 import {addToCart} from './actions/cartActions.js';
 import {postBook, updateBook, deleteBook} from './actions/bookActions.js';
+import logger from 'redux-logger'
 // var reducer = function(state={book:[]}, action){
 //   switch (action.type) {
 //     // case "INCREMENT":
@@ -36,8 +37,9 @@ import {postBook, updateBook, deleteBook} from './actions/bookActions.js';
 //   }
 //   return state;
 // }
+var middleware = applyMiddleware(logger);
+var store = createStore(reducers, middleware);
 
-var store = createStore(reducers);
 
 store.subscribe(function(){
   console.log('current state : ', store.getState());
