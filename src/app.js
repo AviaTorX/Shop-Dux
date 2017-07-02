@@ -1,5 +1,7 @@
 import {createStore} from 'redux';
 import reducers from './reducers/index.js';
+import {addToCart} from './actions/cartActions.js';
+import {postBook, updateBook, deleteBook} from './actions/bookActions.js';
 // var reducer = function(state={book:[]}, action){
 //   switch (action.type) {
 //     // case "INCREMENT":
@@ -47,7 +49,7 @@ store.subscribe(function(){
 // store.dispatch({type:"DECREMENT", payload:1})
 // store.dispatch({type:"INCREMENT", payload:1})
 
-store.dispatch({type:"POST_BOOK", payload:[
+store.dispatch(postBook([
   {
     id:1,
     title:"WElcome",
@@ -59,26 +61,26 @@ store.dispatch({type:"POST_BOOK", payload:[
     description:"Learning End",
     price:50
   }
-]})
+]))
 
-store.dispatch({type:"POST_BOOK", payload:[{
+store.dispatch(postBook([{
   id:3,
   title:"Start",
   description:"Begining",
   price:48
-}]})
+}]))
 
-store.dispatch({type:"DELETE_BOOK", payload:{
+store.dispatch(deleteBook({
   id:1
-}})
+}))
 
-store.dispatch({type:"UPDATE_BOOK", payload:{
+store.dispatch(updateBook({
   id:2,
   title:"rux"
-}})
+}))
 
 //SHOPPING CART
 
-store.dispatch({type:"ADD_TO_CART", payload:[{
+store.dispatch(addToCart([{
   id:2
-}]})
+}]))

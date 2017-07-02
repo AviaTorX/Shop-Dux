@@ -705,6 +705,10 @@ var _index = __webpack_require__(24);
 
 var _index2 = _interopRequireDefault(_index);
 
+var _cartActions = __webpack_require__(27);
+
+var _bookActions = __webpack_require__(28);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // var reducer = function(state={book:[]}, action){
@@ -753,39 +757,39 @@ store.subscribe(function () {
 // store.dispatch({type:"DECREMENT", payload:1})
 // store.dispatch({type:"INCREMENT", payload:1})
 
-store.dispatch({ type: "POST_BOOK", payload: [{
-    id: 1,
-    title: "WElcome",
-    description: "Learning",
-    price: 33
-  }, {
-    id: 2,
-    title: "Sayonara",
-    description: "Learning End",
-    price: 50
-  }] });
+store.dispatch((0, _bookActions.postBook)([{
+  id: 1,
+  title: "WElcome",
+  description: "Learning",
+  price: 33
+}, {
+  id: 2,
+  title: "Sayonara",
+  description: "Learning End",
+  price: 50
+}]));
 
-store.dispatch({ type: "POST_BOOK", payload: [{
-    id: 3,
-    title: "Start",
-    description: "Begining",
-    price: 48
-  }] });
+store.dispatch((0, _bookActions.postBook)([{
+  id: 3,
+  title: "Start",
+  description: "Begining",
+  price: 48
+}]));
 
-store.dispatch({ type: "DELETE_BOOK", payload: {
-    id: 1
-  } });
+store.dispatch((0, _bookActions.deleteBook)({
+  id: 1
+}));
 
-store.dispatch({ type: "UPDATE_BOOK", payload: {
-    id: 2,
-    title: "rux"
-  } });
+store.dispatch((0, _bookActions.updateBook)({
+  id: 2,
+  title: "rux"
+}));
 
 //SHOPPING CART
 
-store.dispatch({ type: "ADD_TO_CART", payload: [{
-    id: 2
-  }] });
+store.dispatch((0, _cartActions.addToCart)([{
+  id: 2
+}]));
 
 /***/ }),
 /* 8 */
@@ -1501,6 +1505,46 @@ function cartReducers() {
 
   }
   return state;
+}
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addToCart = addToCart;
+function addToCart(book) {
+  return { type: "ADD_TO_CART", payload: book };
+}
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.postBook = postBook;
+exports.updateBook = updateBook;
+exports.deleteBook = deleteBook;
+function postBook(book) {
+  return { type: "POST_BOOK", payload: book };
+}
+
+function updateBook(book) {
+  return { type: "UPDATE_BOOK", payload: book };
+}
+
+function deleteBook(book) {
+  return { type: "DELETE_BOOK", payload: book };
 }
 
 /***/ })
